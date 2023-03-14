@@ -1,20 +1,41 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
+import SkeletonComponent from "./components/SkeletonComponent";
+import { useState, useEffect } from "react";
+import Card from "./components/Card";
 
 export default function App() {
+  const [fetched, setFetched] = useState(false);
+
+  useEffect(() => {
+    const simulateFetch = () => {
+      setTimeout(() => {
+        setFetched(true);
+      }, 2000);
+    };
+
+    simulateFetch();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaView style={styles.container}>
+      {fetched ? (
+        <Card />
+      ) : (
+        <SkeletonComponent
+          width={300}
+          height={150}
+          style={{ borderRadius: 20, backgroundColor: "#DF2839" }}
+        />
+      )}
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
