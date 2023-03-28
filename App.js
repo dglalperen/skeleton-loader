@@ -1,6 +1,6 @@
 import { SafeAreaView, StyleSheet, Text, View } from "react-native";
-import SkeletonComponent from "./components/SkeletonComponent";
 import { useState, useEffect } from "react";
+import ShimmerSkeleton from "./components/ShimmerSkeleton";
 import Card from "./components/Card";
 
 export default function App() {
@@ -21,10 +21,12 @@ export default function App() {
       {fetched ? (
         <Card />
       ) : (
-        <SkeletonComponent
+        <ShimmerSkeleton
           width={300}
           height={150}
-          style={{ borderRadius: 20, backgroundColor: "#DF2839" }}
+          borderRadius={20}
+          baseColor="#f0f0f0"
+          highlightColor="#e0e0e0"
         />
       )}
     </SafeAreaView>
