@@ -13,6 +13,7 @@ import Animated, {
   not,
 } from "react-native-reanimated";
 import { LinearGradient } from "expo-linear-gradient";
+import tinycolor from "tinycolor2";
 
 function runTiming(clock, value, dest) {
   const state = {
@@ -23,7 +24,7 @@ function runTiming(clock, value, dest) {
   };
 
   const config = {
-    duration: 1000,
+    duration: 800,
     toValue: new Value(0),
     easing: EasingNode.linear,
   };
@@ -52,8 +53,7 @@ function runTiming(clock, value, dest) {
 const ShimmerSkeleton = ({
   width = 200,
   height = 20,
-  baseColor = "#e0e0e0",
-  highlightColor = "#c0c0c0",
+  backgroundColor = "#e0e0e0",
   isCircle = false,
   borderRadius = 4,
 }) => {
@@ -72,13 +72,19 @@ const ShimmerSkeleton = ({
         borderRadius: borderRadius,
       };
 
+  const baseColor = tinycolor(backgroundColor);
+  const highlightColor = baseColor.lighten(10).toRgbString();
+
+  const gradientStart = isCircle ? { x: 0, y: 0 } : { x: 0, y: 0.5 };
+  const gradientEnd = isCircle ? { x: 1, y: 1 } : { x: 1, y: 0.5 };
+
   return (
     <View style={[styles.container, shapeStyle, { width, height }]}>
       <View
         style={[
           styles.skeleton,
           shapeStyle,
-          { backgroundColor: baseColor, width, height },
+          { backgroundColor, width, height },
         ]}
       />
       <Animated.View style={[styles.shimmer, animatedStyle]}>
@@ -88,8 +94,8 @@ const ShimmerSkeleton = ({
             highlightColor,
             "rgba(255, 255, 255, 0)",
           ]}
-          start={{ x: 0, y: 0.5 }}
-          end={{ x: 1, y: 0.5 }}
+          start={gradientStart}
+          end={gradientEnd}
           style={[styles.gradient, shapeStyle, { height, width: width / 2 }]}
         />
       </Animated.View>

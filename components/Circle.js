@@ -2,26 +2,26 @@ import { Easing, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-const Card = () => {
+const Circle = () => {
   return (
     <Animated.View
       entering={FadeIn.duration(500)}
       style={{
         height: 150,
-        borderRadius: 20,
-        width: 300,
+        borderRadius: 75,
+        width: 150,
         backgroundColor: "#DF2839",
         justifyContent: "center",
         alignItems: "center",
       }}
     >
-      <Text style={{ color: "white", fontWeight: "900" }}>
-        Fertig geladene Karte
+      <Text style={{ color: "white", fontWeight: "900", textAlign: "center" }}>
+        Loaded
       </Text>
     </Animated.View>
   );
 };
 
-export default Card;
+export default Circle;
 
 const styles = StyleSheet.create({});
